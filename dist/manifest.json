@@ -1,0 +1,38 @@
+{
+	"manifest_version": 2,
+	"name": "Tracking-Tag Debugger",
+	"description":
+	"A boilerplate project to quickly build a Chrome extension using TypeScript and React (built using webpack).",
+	"version": "1.0.0",
+	"browser_action": {
+		"default_icon": "icon16.png",
+		"default_popup": "popup.html"
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"run_at": "document_end",
+			"js": ["js/content.js"]
+		}
+	],
+	"web_accessible_resources": [
+		"js/page.js"
+  ],
+  "background": {
+	  "scripts": ["js/background.js"],
+	  "persistent": true
+  },
+  "icons": {
+	  "16": "icon16.png",
+	  "48": "icon48.png",
+	  "128": "icon128.png"
+  },
+  "permissions": [
+	  "debugger",
+	  "tabs",
+      "cookies",
+	  "activeTab",
+	  "webRequest",
+	  "<all_urls>"
+  ]
+}

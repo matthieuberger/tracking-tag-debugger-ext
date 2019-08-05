@@ -1,36 +1,46 @@
 {
-  "name": "tracking-tag-debugger",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@types/jest": "24.0.15",
-    "@types/node": "12.0.8",
-    "@types/react": "16.8.20",
-    "@types/react-dom": "16.8.4",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "typescript": "3.5.2"
-  },
+  "name": "Tracking-tag-debugger",
+  "version": "1.0.0",
+  "description": "A very simple chrome extension useful to debug content square tracking tag.",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "webpack --config webpack/webpack.prod.js",
+    "dev": "webpack --config webpack/webpack.dev.js",
+    "watch": "webpack -w --config webpack/webpack.dev.js",
+    "lint": "tslint 'src/**/*.{ts, tsx}'"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "author": "Matthieu Berger",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "0.0.60",
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
+    "@types/sha1": "^1.1.2",
+    "css-loader": "^0.28.11",
+    "node-sass": "^4.7.2",
+    "redux-devtools-extension": "^2.13.8",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "ts-loader": "^4.0.1",
+    "tslint": "^5.17.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.5.2",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^3.1.1",
+    "webpack-merge": "^4.1.4"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@material-ui/core": "^4.1.1",
+    "@material-ui/icons": "^4.2.1",
+    "lz-string": "^1.4.4",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "sha1": "^1.1.1",
+    "webext-redux": "^2.1.2"
   }
 }

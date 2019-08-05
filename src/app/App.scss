@@ -1,0 +1,12 @@
+$AppBarSize: 56px;
+
+html{
+    height: 600px;
+    width: 800px;
+}
+// Chrome applies an 8px margin by default (gross).
+body {
+    height: 600px;
+    width: 800px;
+    margin: 0px;
+}
