@@ -11,6 +11,7 @@ wrapStore(store, {
 });
 
 // Get Active Tab
+browser.getCurrentTab();
 browser.listenTabChange();
 // browser.getActiveTab();
 

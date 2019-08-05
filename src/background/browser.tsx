@@ -131,5 +131,13 @@ export function updateCookie(url: string, cookie: ICookie, callback=null) {
   });
 }
 
+/**
+ * Refresh the page of currentTabId
+ */
+export function refreshPage(tabId: number) {
+  const code = 'window.location.reload();';
+  chrome.tabs.executeScript(tabId, {code: code});
+}
+
 
 

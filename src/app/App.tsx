@@ -2,8 +2,8 @@ import './App.scss';
 
 import * as React from 'react';
 
-import { Link, Route, withRouter } from "react-router-dom";
-import { Switch, createStyles, withStyles } from "@material-ui/core";
+import { Link, Redirect, Route, Switch, withRouter } from "react-router-dom";
+import { createStyles, withStyles } from "@material-ui/core";
 
 import AppBar from '@material-ui/core/AppBar';
 import ChevronRightIcon from '@material-ui/icons/ChevronLeft';
@@ -19,7 +19,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import NoTagFound from './components/noTagFound';
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -120,17 +119,16 @@ class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
     super(props);
     this.activeRoute = this.activeRoute.bind(this);
+    this.checkTag = this.checkTag.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.location.pathname !== "/no-tag") {
-      if (prevState.currentTabId !== nextProps.currentTabId) {
-        return { currentTabId: nextProps.currentTabId, hasTag: nextProps.hasTag, tab: nextProps.tab };
-      }
+    if (prevState.currentTabId !== nextProps.currentTabId) {
+      return { currentTabId: nextProps.currentTabId, hasTag: nextProps.hasTag, tab: nextProps.tab };
+    }
 
-      if (prevState.hasTag !== nextProps.hasTag) {
-        return { currentTabId: nextProps.currentTabId, hasTag: nextProps.hasTag };
-      }
+    if (prevState.hasTag !== nextProps.hasTag) {
+      return { currentTabId: nextProps.currentTabId, hasTag: nextProps.hasTag };
     }
     return null;
   }
@@ -151,8 +149,21 @@ class App extends React.Component<IAppProps, IAppState> {
     window.close();
   }
 
-  render() {
+  checkTag() {
+    console.log("Check tag");
+    console.log(this.state);
+    if (!this.state.hasTag) {
+      console.log("no-tag");
+      //window.location.href = '/no-tag';
+    }
+  }
 
+  render() {
+    // this.checkTag();
+    if (!this.state.hasTag) {
+      console.log("no-tag");
+      return <Redirect to="/no-tag" />
+    }
     const open = this.state.open;
     const classes = this.props.classes;
     return (
@@ -218,7 +229,6 @@ class App extends React.Component<IAppProps, IAppState> {
           <div className={classes.drawerHeader} />
           <Switch>
             <Route path='/' component={CookiesContainer} />
-            <Route path='/no-tag' component={NoTagFound} />
             <Route path='/cookies' component={CookiesContainer} />
           </Switch>
         </main>

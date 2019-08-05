@@ -22,8 +22,8 @@ proxyStore.ready().then(() => {
   ReactDOM.render(
     <Provider store={proxyStore}>
       <Router>
+        <Route exact path="/no-tag" component={NoTagFound} />
         <Route path="/" component={App} />
-        <Route path="/no-tag" component={NoTagFound} />
       </Router>
     </Provider>
     , document.getElementById('root'));

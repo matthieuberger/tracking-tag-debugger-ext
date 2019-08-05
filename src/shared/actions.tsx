@@ -49,4 +49,15 @@ export function removeCookie(cookie: ICookie) {
   }
 }
 
-export type ActionType = SetTagConf | GetCookies | UpdateCookie | RemoveCookie;
+
+export interface RefreshPage {
+  type: typeof SharedActionTypes.REFRESH_PAGE;
+}
+
+export function refreshPage() {
+  return {
+    type: SharedActionTypes.REFRESH_PAGE,
+  }
+}
+
+export type ActionType = SetTagConf | GetCookies | UpdateCookie | RemoveCookie | RefreshPage;

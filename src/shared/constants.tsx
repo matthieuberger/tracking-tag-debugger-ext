@@ -8,5 +8,8 @@ export enum SharedActionTypes {
     // Cookies actions
     GET_COOKIES = '@@Shared/GET_COOKIES',
     UPDATE_COOKIE = '@@Shared/UPDATE_COOKIE',
-    REMOVE_COOKIE = '@@Shared/REMOVE_COOKIE'
+    REMOVE_COOKIE = '@@Shared/REMOVE_COOKIE',
+
+    // Refresh page
+    REFRESH_PAGE = '@@Shared/REFRESH_PAGE'
 }
