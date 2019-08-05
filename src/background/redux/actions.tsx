@@ -1,6 +1,5 @@
 import { BackgroundActionTypes } from './constants';
 import {ICookie} from '../../shared/types';
-import { SharedActionType } from '../../shared/actions';
 
 interface AttachDebugger{
   type: typeof BackgroundActionTypes.ATTACH_DEBUGGER;
@@ -81,4 +80,4 @@ export function setCurrentTab(tabId: number, hostname: string) {
 
 
 
-export type ActionType = AttachDebugger | SetUxaOn | SetCurrentTab | GetCookies | SetCookies | AddTagApiRequest | SharedActionType;
+export type ActionType = AttachDebugger | SetUxaOn | SetCurrentTab | GetCookies | SetCookies | AddTagApiRequest;

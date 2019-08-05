@@ -2,9 +2,8 @@ import './App.scss';
 
 import * as React from 'react';
 
-import { ITabData, ITagRequest } from '../shared/types';
-import { Link, ReactRouterProps, Route, withRouter } from "react-router-dom";
-import { createStyles, withStyles } from "@material-ui/core";
+import { Link, Route, withRouter } from "react-router-dom";
+import { Switch, createStyles, withStyles } from "@material-ui/core";
 
 import AppBar from '@material-ui/core/AppBar';
 import ChevronRightIcon from '@material-ui/icons/ChevronLeft';
@@ -13,11 +12,10 @@ import CookiesContainer from './components/cookiesContainer';
 import DesktopWindows from '@material-ui/icons/DesktopWindows';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import { ITabData } from '../shared/types';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
@@ -43,7 +41,6 @@ interface IAppState {
   currentTabId: number;
   currentUrl: string;
   hasTag: boolean;
-  tab: ITabData;
   activeRoute: string;
 }
 
@@ -117,7 +114,6 @@ class App extends React.Component<IAppProps, IAppState> {
     currentTabId: null,
     currentUrl: null,
     hasTag: false,
-    tab: null,
     activeRoute: '/'
   }
 
@@ -127,17 +123,14 @@ class App extends React.Component<IAppProps, IAppState> {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.location.pathname !== "/no-tag") {
+      if (prevState.currentTabId !== nextProps.currentTabId) {
+        return { currentTabId: nextProps.currentTabId, hasTag: nextProps.hasTag, tab: nextProps.tab };
+      }
 
-    if (prevState.currentTabId !== nextProps.currentTabId) {
-      return { currentTabId: nextProps.currentTabId, hasTag: nextProps.hasTag, tab: nextProps.tab };
-    }
-
-    if (prevState.hasTag !== nextProps.hasTag) {
-      return {currentTabId: nextProps.currentTabId, hasTag: nextProps.hasTag, tab: nextProps.tab};
-    }
-
-    if (prevState.tab !== nextProps.tab) {
-      return {tab: nextProps.tab};
+      if (prevState.hasTag !== nextProps.hasTag) {
+        return { currentTabId: nextProps.currentTabId, hasTag: nextProps.hasTag };
+      }
     }
     return null;
   }
@@ -159,6 +152,7 @@ class App extends React.Component<IAppProps, IAppState> {
   }
 
   render() {
+
     const open = this.state.open;
     const classes = this.props.classes;
     return (
@@ -222,9 +216,11 @@ class App extends React.Component<IAppProps, IAppState> {
           })}
         >
           <div className={classes.drawerHeader} />
-          <Route path='/' component={CookiesContainer} />
-          <Route path='/no-tag' component={NoTagFound} />
-          <Route path='/cookies' component={CookiesContainer} />
+          <Switch>
+            <Route path='/' component={CookiesContainer} />
+            <Route path='/no-tag' component={NoTagFound} />
+            <Route path='/cookies' component={CookiesContainer} />
+          </Switch>
         </main>
       </div>
     );
@@ -235,7 +231,6 @@ const mapStateToProps = function (state) {
   return {
     currentTabId: state.currentTabId,
     hasTag: state.tabs[state.currentTabId] ? state.tabs[state.currentTabId].hasTag : false,
-    tab: state.tabs[state.currentTabId] ? state.tabs[state.currentTabId] : null
   };
 };
 

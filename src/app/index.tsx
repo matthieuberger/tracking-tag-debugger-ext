@@ -1,12 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Store, applyMiddleware } from 'webext-redux';
-import App from './App';
-import { REDUX_PORT_NAME } from "../shared/constants";
 
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Store, applyMiddleware } from 'webext-redux';
+
+import App from './App';
+import NoTagFound from './components/noTagFound';
+import {Provider} from 'react-redux';
+import { REDUX_PORT_NAME } from "../shared/constants";
+import thunkMiddleware from 'redux-thunk';
 
 const store = new Store({portName: REDUX_PORT_NAME});
 // Apply middleware to proxy store
@@ -21,6 +23,7 @@ proxyStore.ready().then(() => {
     <Provider store={proxyStore}>
       <Router>
         <Route path="/" component={App} />
+        <Route path="/no-tag" component={NoTagFound} />
       </Router>
     </Provider>
     , document.getElementById('root'));

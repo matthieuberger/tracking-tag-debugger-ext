@@ -1,18 +1,21 @@
-import { getCookies, updateBadge } from '../browser';
+import * as actions from './actions';
+
+import { deleteCookie, getCookies, updateBadge, updateCookie } from '../browser';
 import { hashRequest, parseUrlAndCookies } from '../utils';
 
-import { ActionType } from './actions';
 import { BackgroundActionTypes } from './constants';
 import { ITagState } from '../../shared/types';
+import { Reducer } from 'redux';
 import { SharedActionTypes } from '../../shared/constants';
+import store from './store';
 
-const initialState: ITagState = {
+export const initialState: ITagState = {
   currentTabId: null,
   currentUrl: null,
   tabs: null
 };
 
-export function backgroundReducer(state: ITagState = initialState, action: ActionType) {
+export const backgroundReducer: Reducer<ITagState, any> = (state: ITagState = initialState, action) => {
   var tabId = state.currentTabId;
   switch(action.type) {
 
@@ -20,7 +23,9 @@ export function backgroundReducer(state: ITagState = initialState, action: Actio
       break;
 
     case BackgroundActionTypes.SET_UXA_ON:
-      state[action.tabId].hasTag = true;
+      state = {...state, tabs: {...state.tabs, 
+        [tabId]:{ ...state.tabs[tabId], hasTag: true}
+      }};
 
       // TODO: Create Update badge action for redux
       updateBadge(true);
@@ -55,8 +60,28 @@ export function backgroundReducer(state: ITagState = initialState, action: Actio
         {...state.tabs[action.tabId], requests: {...state.tabs[action.tabId].requests, [uId]: newRequest}}
       }};
       break
+    
+    // Handling Shared Actions
+    case SharedActionTypes.UPDATE_COOKIE:
+        if (state.currentUrl) {
+          updateCookie(state.currentUrl, action.cookie, (success) => {
+            if (success) {
+              store.dispatch(actions.getCookies());
+            }
+          });
+        }
+        break;
+  
+    case SharedActionTypes.REMOVE_COOKIE:
+        if (state.currentUrl) {
+          deleteCookie(state.currentUrl, action.cookie, (success) => {
+            if (success) {
+              store.dispatch(actions.getCookies());
+            }
+          });
+        }
+        break;
 
-    // Shared ActionTypes
     case SharedActionTypes.SET_TAG_CONF:
       if(tabId)
         state = {...state, tabs: {...state.tabs, [tabId]: {...state.tabs[tabId],

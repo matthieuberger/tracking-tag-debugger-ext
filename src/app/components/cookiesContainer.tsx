@@ -5,7 +5,6 @@ import { Theme, WithStyles, createStyles, withStyles } from '@material-ui/core';
 
 import CookieComponent from './cookie';
 import { ICookie } from '../../shared/types';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 
@@ -25,6 +24,8 @@ const styles = (theme: Theme) =>
 interface ICookiesContainerProps extends WithStyles {
   cookies: ICookie[];
   getCookies: typeof actions.getCookies;
+  updateCookie: typeof actions.updateCookie;
+  removeCookie: typeof actions.removeCookie;
 }
 
 interface ICookiesContainerState {
@@ -58,7 +59,12 @@ class CookiesContainer extends React.Component<ICookiesContainerProps, ICookiesC
   createCookiesList() {
     var cookiesComponents = [];
     this.state.cookies.map((value, index) => {
-      cookiesComponents.push(<CookieComponent key={index} cookie={value} />);
+      cookiesComponents.push(<CookieComponent 
+        key={index} 
+        cookie={value}
+        updateCookie={(cookie) => this.props.updateCookie(cookie)}
+        removeCookie={(cookie) => this.props.removeCookie(cookie)}
+      />);
     });
     return cookiesComponents;
   }
@@ -85,7 +91,9 @@ const mapStateToProps = function (state) {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getCookies: () => dispatch(actions.getCookies())
+  getCookies: () => dispatch(actions.getCookies()),
+  updateCookie: (cookie: ICookie) => dispatch(actions.updateCookie(cookie)),
+  removeCookie: (cookie: ICookie) => dispatch(actions.removeCookie(cookie))
 })
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(CookiesContainer));
