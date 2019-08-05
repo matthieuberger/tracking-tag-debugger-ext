@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Theme, createStyles, withStyles } from '@material-ui/core';
+import { Checkbox, FormControlLabel, Grid, Paper, Theme, createStyles, withStyles } from '@material-ui/core';
 
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
@@ -27,10 +27,6 @@ const styles = (theme: Theme) =>
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
-    },
-    secondaryHeading: {
-      fontSize: theme.typography.pxToRem(15),
-      color: theme.palette.text.secondary,
     },
     icon: {
       verticalAlign: 'bottom',
@@ -78,56 +74,85 @@ class CookieComponent extends React.Component<ICookieProps> {
             <Typography className={classes.heading}>Domain: {cookie.domain} </Typography>
           </div>
           <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>Name: {cookie.name} </Typography>
+            <Typography className={classes.heading}>Name: {cookie.name} </Typography>
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
-          <TextField
-            required
-            id="outlined-required"
-            label="Value"
-            defaultValue="Hello World"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            value={cookie.value}
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Required"
-            defaultValue="Hello World"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Required"
-            defaultValue="Hello World"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Required"
-            defaultValue="Hello World"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Required"
-            defaultValue="Hello World"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  id="outlined-required"
+                  label="Value"
+                  defaultValue="Hello World"
+                  className={classes.textField}
+                  margin="normal"
+                  variant="outlined"
+                  multiline
+                  fullWidth
+                  value={cookie.value}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  id="outlined-required"
+                  label="Expiration"
+                  type="datetime-local"
+                  defaultValue="Hello World"
+                  className={classes.textField}
+                  margin="normal"
+                  variant="outlined"
+                  fullWidth
+                  value={cookie.expirationDate}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  id="outlined-required"
+                  label="Path"
+                  defaultValue="Hello World"
+                  className={classes.textField}
+                  margin="normal"
+                  variant="outlined"
+                  fullWidth
+                  value={cookie.path}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <FormControlLabel
+                  value={cookie.hostOnly}
+                  control={<Checkbox color="primary" />}
+                  label="Host Only"
+                  labelPlacement="start"
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <FormControlLabel
+                  value={cookie.session}
+                  control={<Checkbox color="primary" />}
+                  label="Session"
+                  labelPlacement="start"
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <FormControlLabel
+                  value={cookie.secure}
+                  control={<Checkbox color="primary" />}
+                  label="Secure"
+                  labelPlacement="start"
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <FormControlLabel
+                  value={cookie.httpOnly}
+                  control={<Checkbox color="primary" />}
+                  label="Http Only"
+                  labelPlacement="start"
+                />
+              </Grid>
+            </Grid>
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>

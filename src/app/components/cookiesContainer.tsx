@@ -12,7 +12,13 @@ import { connect } from 'react-redux';
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      padding: 0
+      padding: 0,
+    },
+    container: {
+      marginTop: 10,
+      flexGrow: 1,
+      overflow: 'auto',
+      maxHeight: 460
     }
   });
 
@@ -52,7 +58,7 @@ class CookiesContainer extends React.Component<ICookiesContainerProps, ICookiesC
   createCookiesList() {
     var cookiesComponents = [];
     this.state.cookies.map((value, index) => {
-      cookiesComponents.push(<CookieComponent key={index} cookie={value}/>);
+      cookiesComponents.push(<CookieComponent key={index} cookie={value} />);
     });
     return cookiesComponents;
   }
@@ -60,14 +66,14 @@ class CookiesContainer extends React.Component<ICookiesContainerProps, ICookiesC
   public render() {
     const classes = this.props.classes;
     return (
-      <Paper className={classes.root}>
-        <Typography variant="h5" component="h3">
-          CS Cookies
-        </Typography>
-        <div>
-            {this.createCookiesList()}
+      <div className={classes.root}>
+          <Typography variant="h5" component="h3">
+            CS Cookies
+          </Typography>
+        <div className={classes.container}>
+          {this.createCookiesList()}
         </div>
-      </Paper>
+      </div>
     )
   }
 }

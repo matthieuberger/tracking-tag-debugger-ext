@@ -21,6 +21,8 @@ export function backgroundReducer(state: ITagState = initialState, action: Actio
 
     case BackgroundActionTypes.SET_UXA_ON:
       state[action.tabId].hasTag = true;
+
+      // TODO: Create Update badge action for redux
       updateBadge(true);
       break;
 
@@ -42,7 +44,8 @@ export function backgroundReducer(state: ITagState = initialState, action: Actio
       state = state[tabId] ? state : {...state, tabs: {...state.tabs,
         [tabId]:{hasTag: false, uxaUrl: null, requests: {}, tagConfig: null, cookies: [] }
       }};
-      // updateBadge(state[tabId].hasTag)
+      // TODO: Create Update badge action for redux
+      // Dispatch update badge action
       break;
 
     case BackgroundActionTypes.ADD_TAG_API_REQUEST:
