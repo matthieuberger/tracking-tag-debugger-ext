@@ -1,9 +1,11 @@
 {
 	"manifest_version": 2,
-	"name": "Tracking-Tag Debugger",
+	"name": "Contentsquare Tracking-Tag Debugger",
 	"description":
-	"A boilerplate project to quickly build a Chrome extension using TypeScript and React (built using webpack).",
-	"version": "1.0.0",
+		"A Chrom Extension that will allow users to intercept and deserialize all requests fired by the tracking tag.",
+	"version": "0.1.0",
+	"default_locale": "en",
+	"author": "Matthieu BERGER",
 	"browser_action": {
 		"default_icon": "icon16.png",
 		"default_popup": "popup.html"
