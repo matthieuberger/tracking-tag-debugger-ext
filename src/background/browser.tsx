@@ -133,10 +133,26 @@ export function updateCookie(url: string, cookie: ICookie, callback=null) {
 
 /**
  * Refresh the page of currentTabId
+ * 
+ * function (){
+            if(chrome.runtime.lastError){
+                console.error(chrome.runtime.lastError.message);
+            }
+        }
  */
 export function refreshPage(tabId: number) {
   const code = 'window.location.reload();';
-  chrome.tabs.executeScript(tabId, {code: code});
+  chrome.tabs.executeScript(tabId, {code: code}, captureChromeError);
+}
+
+
+export function captureChromeError() {
+  if(chrome.runtime.lastError){
+    const message = chrome.runtime.lastError.message;
+    // Clear error
+    delete chrome.runtime.lastError;
+    console.log(message);
+  }
 }
 
 
